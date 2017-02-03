@@ -1,6 +1,6 @@
 # Tyk Pro Demo using Docker
 
-This compose file is designe dto provide a quick, simple demo of the Tyk stack, this includes the gateway, the dashboard and the portal.
+This compose file is designed to provide a quick, simple demo of the Tyk stack, this includes the gateway, the dashboard and the portal.
 
 ## Step 1:
 

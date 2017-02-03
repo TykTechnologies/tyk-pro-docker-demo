@@ -15,7 +15,7 @@ Note that the IP may be different depending on your installation, Windows users 
 
 ## Step 2: Add your dashboard license
 
-Open the `tyk_analytics.conf` file in the `confs/` folder and add your license string to the `"license_key": ""` section.
+Open the `tyk_analytics.conf` file in the `./volumes/config/` folder and add your license string to the `"license_key": ""` section.
 
 ## Step 2:
 
@@ -32,10 +32,14 @@ This will run in non-daemonised mode so you can see all the output. For the next
 Bootstrap the instance:
 
 ```
-chmod +x setup.sh 
-./setup.sh 
+chmod +x setup.sh
+./setup.sh
 ```
 
 # Step 4: Log in with the credentials provided.
 
 The setup script will provide a username and password, as well as the URL of your portal, please note that this will be running on port 3000, not port 80.
+
+# Step 5: Play away!
+
+The configuration can be changed in ./volumes/config. JavaScript middleware can be added to ./volumes/middleware, then add middleware to the API Definition at "custom_middleware" (export the API definition from the dashboard, edit it, modify it, delete it from the dashboard, and then import the modified definition.)

@@ -58,6 +58,7 @@ USER_DATA=$(curl --silent --header "admin-auth: 12345" --header "Content-Type:ap
 USER_AUTH=$(echo $USER_DATA | python -c 'import json,sys;obj=json.load(sys.stdin);print obj["Message"]')
 USER_LIST=$(curl --silent --header "authorization: $USER_AUTH" http://$DOCKER_IP:3000/api/users 2>&1)
 USER_ID=$(echo $USER_LIST | python -c 'import json,sys;obj=json.load(sys.stdin);print obj["users"][0]["id"]')
+echo "User Auth for making gateway API calls"
 echo "USER AUTH: $USER_AUTH"
 echo "USER ID: $USER_ID"
 

@@ -10,9 +10,6 @@
 
 # OSX users will need to specify a virtual IP, linux users can use 127.0.0.1
 
-# Proxy
-TYK_DASHBOARD_DOMAIN="tyk_dashboard"
-
 # Tyk dashboard settings
 TYK_DASHBOARD_USERNAME="test$RANDOM@test.com"
 TYK_DASHBOARD_PASSWORD="test123"

@@ -1,3 +1,9 @@
+# This demo is NOT designed for production use or performance testing
+Tyk API Gateway is fully on-premise solution, which include gateway, dashboard and analytics processing pipeline.
+This demo will run Tyk On-premise on your machine, which contains 5 containers: Tyk Gateway, Tyk Dashboard, Tyk Pump, Redis and Mongodb.
+This repo great for proof of concept and demo purpose, but if you want test performance, you need to move each component to separate machine, following our documentation https://tyk.io/docs/.
+
+
 # Tyk Pro Demo using Docker
 
 This compose file is designed to provide a quick, simple demo of the Tyk stack, this includes the gateway, the dashboard and the portal.

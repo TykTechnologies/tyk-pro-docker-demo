@@ -4,6 +4,10 @@ This demo will run Tyk On-premise on your machine, which contains 5 containers: 
 This repo great for proof of concept and demo purpose, but if you want test performance, you need to move each component to separate machine, following our documentation https://tyk.io/docs/.
 
 
+# Tyk Pro Demo using Docker Swarm
+
+Please refer to [docker-swarm.md](docker-swarm.md) for detailed instructions on running this simple deployment on the Docker Swarm with Tyk cluster. Note that in order to have more than one functional gateway node a corresponding license is required.
+
 # Tyk Pro Demo using Docker
 
 This compose file is designed to provide a quick, simple demo of the Tyk stack, this includes the gateway, the dashboard and the portal.
@@ -28,7 +32,7 @@ Open the `tyk_analytics.conf` file in the `confs/` folder and add your license s
 Run docker compose:
 
 ```
-docker-compose up
+docker-compose -f docker-compose.yml -f docker-local.yml up
 ```
 
 This will run in non-daemonised mode so you can see all the output. For the next step, open a new shell:

@@ -1,0 +1,12 @@
+version: '3.3'
+services:
+    tyk-dashboard:
+        volumes:
+            - ./confs/tyk_analytics.conf:/opt/tyk-dashboard/tyk_analytics.conf
+    tyk-gateway:
+        volumes:
+            - ./confs/tyk.conf:/opt/tyk-gateway/tyk.conf
+    tyk-pump:
+        volumes:
+            - ./confs/pump.conf:/opt/tyk-pump/pump.conf
+

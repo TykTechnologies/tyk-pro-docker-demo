@@ -100,7 +100,7 @@ Eventually, all the containers should be launched and ready:
 $ docker service ls
 ID                  NAME                         MODE                REPLICAS            IMAGE                              PORTS
 omzcwm2r01s0        tyk-pro-demo_tyk-dashboard   replicated          2/2                 tykio/tyk-dashboard:latest         *:3000->3000/tcp, *:5000->5000/tcp
-poctpcc8xr6t        tyk-pro-demo_tyk-gateway     replicated          2/2                 tykio/tyk-gateway:latest           *:8181->8181/tcp
+poctpcc8xr6t        tyk-pro-demo_tyk-gateway     replicated          2/2                 tykio/tyk-gateway:latest           *:8080->8080/tcp
 4p8k5wxn8fgy        tyk-pro-demo_tyk-mongo       replicated          1/1                 mongo:3.2                          *:27017->27017/tcp
 vfoh5zjez2fd        tyk-pro-demo_tyk-pump        replicated          2/2                 tykio/tyk-pump-docker-pub:latest   
 8bvfjijoqzy6        tyk-pro-demo_tyk-redis       replicated          1/1                 redis:latest                       *:6379->6379/tcp

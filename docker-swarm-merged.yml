@@ -42,8 +42,8 @@ services:
     networks:
       tyk: null
     ports:
-    - published: 8181
-      target: 8181
+    - published: 8080
+      target: 8080
   tyk-mongo:
     command:
     - mongod

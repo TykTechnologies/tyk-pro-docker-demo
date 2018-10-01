@@ -86,7 +86,7 @@ ORGS_LIST=$(echo $ORGS_DATA | jq  '.organisations')
 
 # Handle multiple org creation
 if [ "$ORGS_LIST" != "[]" ]
-then$
+then
     echo "IMPORTANT: You have already one or more organisations defined in mongoDB."
     echo "           Would you like to proceed and add another organisation or stop and drop the database and then run this script again? (y/n)"
   while true; do

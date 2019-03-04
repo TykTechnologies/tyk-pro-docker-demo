@@ -27,7 +27,7 @@ Note that the IP may be different depending on your installation, Windows users 
 
 Open the `tyk_analytics.conf` file in the `confs/` folder and add your license string to the `"license_key": ""` section.
 
-## Step 2:
+## Step 3: Initialise the Docker containers
 
 Run docker compose:
 
@@ -35,9 +35,11 @@ Run docker compose:
 docker-compose -f docker-compose.yml -f docker-local.yml up
 ```
 
-This will run in non-daemonised mode so you can see all the output. For the next step, open a new shell:
+Please note that this command may take a while to complete, as Docker needs to download and provision all of the containers.
 
-# Step 3:
+This will run in non-daemonised mode so you can see all the output. For the next step, once this step is complete, open a new shell:
+
+## Step 4: Bootstrap the Tyk installation
 
 Bootstrap the instance:
 
@@ -46,6 +48,6 @@ chmod +x setup.sh
 ./setup.sh 
 ```
 
-# Step 4: Log in with the credentials provided.
+## Step 5: Log in with the credentials provided
 
 The setup script will provide a username and password, as well as the URL of your portal, please note that this will be running on port 3000, not port 80.

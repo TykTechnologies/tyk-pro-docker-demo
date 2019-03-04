@@ -12,7 +12,7 @@ Please refer to [docker-swarm.md](docker-swarm.md) for detailed instructions on 
 
 This compose file is designed to provide a quick, simple demo of the Tyk stack, this includes the gateway, the dashboard and the portal.
 
-## Step 1:
+## Step 1: Map hostnames to IP addresses
 
 Set up your `/etc/hosts` file to include the IP of your docker daemon:
 

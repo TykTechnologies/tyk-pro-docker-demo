@@ -43,11 +43,4 @@ This will run in non-daemonised mode so you can see all the output. For the next
 
 Bootstrap the instance:
 
-```
-chmod +x setup.sh 
-./setup.sh 
-```
-
-## Step 5: Log in with the credentials provided
-
-The setup script will provide a username and password, as well as the URL of your portal, please note that this will be running on port 3000, not port 80.
+Open your browser to http://www.tyk-test.com:3000.  You will be presented with the Bootstrap UI to create your first organisation and admin user.

@@ -44,3 +44,5 @@ This will run in non-daemonised mode so you can see all the output. For the next
 Bootstrap the instance:
 
 Open your browser to http://www.tyk-test.com:3000.  You will be presented with the Bootstrap UI to create your first organisation and admin user.
+
+Note, if you run into DNS issues with `www.tyk-test.com` while trying to bootstrap through the GUI, you will need to set the `host_config.hostname` value in `tyk_analytics.conf` to the public IP of your Docker daemon or simply use `localhost`

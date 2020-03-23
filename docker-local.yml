@@ -6,6 +6,7 @@ services:
   tyk-gateway:
     volumes:
     - ./confs/tyk.conf:/opt/tyk-gateway/tyk.conf
+    - ./middleware:/opt/tyk-gateway/middleware
   tyk-pump:
     volumes:
     - ./confs/pump.conf:/opt/tyk-pump/pump.conf

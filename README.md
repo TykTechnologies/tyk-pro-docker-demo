@@ -3,11 +3,6 @@ Tyk API Gateway is fully on-premise solution, which include gateway, dashboard a
 This demo will run Tyk On-premise on your machine, which contains 5 containers: Tyk Gateway, Tyk Dashboard, Tyk Pump, Redis and Mongodb.
 This repo great for proof of concept and demo purpose, but if you want test performance, you need to move each component to separate machine, following our documentation https://tyk.io/docs/.
 
-
-# Tyk Pro Demo using Docker Swarm
-
-Please refer to [docker-swarm.md](docker-swarm.md) for detailed instructions on running this simple deployment on the Docker Swarm with Tyk cluster. Note that in order to have more than one functional gateway node a corresponding license is required.
-
 # Tyk Pro Demo using Docker
 
 This compose file is designed to provide a quick, simple demo of the Tyk stack, this includes the gateway, the dashboard and the portal.
@@ -46,3 +41,7 @@ Bootstrap the instance:
 Open your browser to http://www.tyk-test.com:3000.  You will be presented with the Bootstrap UI to create your first organisation and admin user.
 
 Note, if you run into DNS issues with `www.tyk-test.com` while trying to bootstrap through the GUI, you will need to set the `host_config.hostname` value in `tyk_analytics.conf` to the public IP of your Docker daemon or simply use `localhost`
+
+# Tyk Pro Demo using Docker Swarm
+
+Please refer to [docker-swarm.md](docker-swarm.md) for detailed instructions on running this simple deployment on the Docker Swarm with Tyk cluster. Note that in order to have more than one functional gateway node a corresponding license is required.

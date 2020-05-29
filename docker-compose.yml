@@ -1,7 +1,21 @@
 version: '3.3'
 services:
+  tyk-mdcb:
+    image: tykio/tyk-mdcb-docker
+    ports:
+    - "9090:9090"
+    volumes:
+    - ./confs/tyk_sink.conf:/opt/tyk-sink/tyk_sink.conf
+    networks:
+    - tyk
+    depends_on:
+    - tyk-dashboard
+    - tyk-redis
+    - tyk-mongo
   tyk-dashboard:
     image: tykio/tyk-dashboard:latest
+    volumes:
+      - ./confs/tyk_analytics.conf:/opt/tyk-dashboard/tyk_analytics.conf
     ports:
     - "3000:3000"
     - "5000:5000"
@@ -10,16 +24,26 @@ services:
     depends_on:
     - tyk-redis
     - tyk-mongo
-  tyk-gateway:
-    image: tykio/tyk-gateway:latest
+    volumes: 
+    - ./confs/dash-cert.pem:/opt/tyk-dashboard/new.cert.cert
+    - ./confs/dash-key.pem:/opt/tyk-dashboard/new.cert.key
+    environment: 
+    - TYK_DB_HOSTCONFIG_GENERATEHTTPS=true
+  tyk-mgateway:
+    image: tykio/tyk-mgateway:latest
+    volumes:
+      - ./confs/tyk.conf:/opt/tyk-gateway/tyk.conf
+      - ./middleware:/opt/tyk-gateway/middleware
     ports:
-    - "8080:8080"
+    - "8081:8081"
     networks:
     - tyk
     depends_on:
     - tyk-redis
   tyk-pump:
     image: tykio/tyk-pump-docker-pub:latest
+    volumes:
+      - ./confs/pump.conf:/opt/tyk-pump/pump.conf  
     networks:
     - tyk
     depends_on:

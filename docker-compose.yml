@@ -14,8 +14,6 @@ services:
     - tyk-mongo
   tyk-dashboard:
     image: tykio/tyk-dashboard:latest
-    volumes:
-      - ./confs/tyk_analytics.conf:/opt/tyk-dashboard/tyk_analytics.conf
     ports:
     - "3000:3000"
     - "5000:5000"
@@ -25,8 +23,7 @@ services:
     - tyk-redis
     - tyk-mongo
     volumes: 
-    - ./confs/dash-cert.pem:/opt/tyk-dashboard/new.cert.cert
-    - ./confs/dash-key.pem:/opt/tyk-dashboard/new.cert.key
+    - ./confs/tyk_analytics.conf:/opt/tyk-dashboard/tyk_analytics.conf
   tyk-mgateway:
     image: tykio/tyk-gateway:latest
     volumes:

@@ -27,10 +27,8 @@ services:
     volumes: 
     - ./confs/dash-cert.pem:/opt/tyk-dashboard/new.cert.cert
     - ./confs/dash-key.pem:/opt/tyk-dashboard/new.cert.key
-    environment: 
-    - TYK_DB_HOSTCONFIG_GENERATEHTTPS=true
   tyk-mgateway:
-    image: tykio/tyk-mgateway:latest
+    image: tykio/tyk-gateway:latest
     volumes:
       - ./confs/tyk.conf:/opt/tyk-gateway/tyk.conf
       - ./middleware:/opt/tyk-gateway/middleware
@@ -49,7 +47,7 @@ services:
     depends_on:
     - tyk-redis
     - tyk-mongo
-    - tyk-gateway
+    - tyk-mgateway
   tyk-redis:
     image: redis
     ports:

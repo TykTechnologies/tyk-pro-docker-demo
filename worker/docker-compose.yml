@@ -1,0 +1,29 @@
+version: '3.3'
+services:
+  tyk-gateway:
+    image: tykio/tyk-gateway:latest
+    volumes:
+      - ./tyk_worker.conf:/opt/tyk-gateway/tyk.conf
+      - ./middleware:/opt/tyk-gateway/middleware
+    ports:
+    - "8080:8080"
+    networks:
+    - tyk-worker
+    depends_on:
+    - tyk-redis
+  
+  tyk-redis:
+    image: redis
+    ports:
+    - "6379:6379"
+    volumes:
+    - redis-data:/data
+    networks:
+    - tyk-worker
+
+
+volumes:
+  redis-data:
+
+networks:
+  tyk-worker:

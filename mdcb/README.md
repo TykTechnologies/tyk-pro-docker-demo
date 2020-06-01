@@ -140,9 +140,9 @@ C) Run The GW cluster
 A) Run the stack
 `docker-compose -f docker-compose-tib.yml up -d`
 
-B) Modify nginx/index.html and use the right IP instead of "localhost"
+B) Modify `nginx/index.html` and use the right IP instead of `localhost`
 
-C) Modify confs/profile.json with correct
+C) Modify `confs/profile.json` with correct:
 ```
 "OrgID"
 "IdentityHandlerConfig.DashboardCredential" --- This is your User's API Key

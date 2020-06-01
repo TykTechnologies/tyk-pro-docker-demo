@@ -1,0 +1,27 @@
+[
+    {
+        "ActionType": "GenerateOrLoginUserProfile",
+        "ID": "okta-dashboard-sso",
+        "OrgID": "5ea7130e9055ce0001afbee5",
+        "IdentityHandlerConfig": {"DashboardCredential": "12345"},
+        "ProviderConfig": {
+            "CallbackBaseURL": "http://localhost:3010",
+            "FailureRedirect": "http://localhost:3000/dashboard/?fail=true",
+            "UseProviders": [{
+                "Name": "openid-connect",
+                "Key": "0oacqewlpUNTzz86f4x6",
+                "Secret": "zCy-Ume3YnA68aGqBvPGWcHoAHL7rqsL28upsWXW",
+                "Scopes": ["openid", "email"],
+                "DiscoverURL": "https://dev-204933.okta.com/oauth2/default/.well-known/oauth-authorization-server"   
+            }]
+        },
+        "ProviderName": "SocialProvider",
+        "ReturnURL": "http://localhost:3000/tap",
+        "Type": "redirect",
+        "CustomUserGroupField": "groups",
+        "UserGroupMapping": {
+          "LogsOnly": "5ecd611a880661000187496a",
+          "Admin": "5ecd231688066100018ffb23"
+        }
+      }
+]

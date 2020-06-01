@@ -15,7 +15,7 @@ services:
   tyk-nginx:
     image: nginx
     volumes:
-    - ./confs/nginx:/usr/share/nginx/html:ro
+    - ./nginx:/usr/share/nginx/html:ro
     ports:
       - 80:80
 

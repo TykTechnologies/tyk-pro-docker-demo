@@ -144,6 +144,7 @@ B) Modify `nginx/index.html` and use the right IP instead of `localhost`
 
 C) Modify `confs/profile.json` with correct:
 ```
-"OrgID"
+"OrgID" ---> "Use your OrgID"
 "IdentityHandlerConfig.DashboardCredential" --- This is your User's API Key
+"ProviderConfig.ReturnUrl" ---> Use correct IP instead of localhost
 ```

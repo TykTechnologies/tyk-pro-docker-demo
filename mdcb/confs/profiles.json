@@ -2,9 +2,9 @@
   {
     "ActionType": "GenerateOrLoginUserProfile",
     "ID": "ldap-sso-dashboard",
-    "OrgID": "5ea7130e9055ce0001afbee5",
+    "OrgID": "YOUR_ORG_ID",
     "IdentityHandlerConfig": {
-        "DashboardCredential": "dea82a77354843ed7e1745ba27768f26"
+        "DashboardCredential": "YOUR_USER_API_KEY"
     },
     "ProviderConfig": {
       "FailureRedirect": "http://localhost:3000/?fail=true",
@@ -16,19 +16,14 @@
     },
     "ProviderName": "ADProvider",
     "ReturnURL": "http://localhost:3000/tap",
-    "Type": "passthrough",
-    "CustomUserGroupField": "ou",
-    "UserGroupMapping": {
-      "mathematicians": "5ecd611a880661000187496a",
-      "scientists": "5ecd231688066100018ffb23"
-    }
+    "Type": "passthrough"
   },
   {
     "ActionType": "GenerateOrLoginDeveloperProfile",
     "ID": "ldap-sso-portal",
-    "OrgID": "5ea7130e9055ce0001afbee5",
+    "OrgID": "YOUR_ORG_ID",
     "IdentityHandlerConfig": {
-        "DashboardCredential": "dea82a77354843ed7e1745ba27768f26"
+        "DashboardCredential": "YOUR_USER_API_KEY"
     },
     "ProviderConfig": {
       "FailureRedirect": "http://localhost:3000/portal/login",

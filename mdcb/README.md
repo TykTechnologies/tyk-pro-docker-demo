@@ -45,6 +45,7 @@ B) Install It
 `sudo yum install tyk-sink`
 
 C) Edit /opt/tyk-sink/tyk_sink.conf
+
 -Add MDCB license to tyk_sink.conf
 -Update RedisPort to 6380
 

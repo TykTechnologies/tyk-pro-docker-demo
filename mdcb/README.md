@@ -108,8 +108,17 @@ B) ADD to tyk.conf
 - API key
 - connection_string
 
-C) Docker-compose up -d
+C) Run The GW cluster
+`docker-compose up -d`
 
 
 7. Install & Run Tib
-docker-compose -f docker-compose-tib.yml up -d
+
+A) Run the stack
+`docker-compose -f docker-compose-tib.yml up -d`
+
+B) Modify nginx/index.html and use the right IP instead of "localhost"
+
+C) Modify confs/profile.json with correct
+----- `"OrgID"`
+----- `"IdentityHandlerConfig.DashboardCredential"` --- This is your User's API Key

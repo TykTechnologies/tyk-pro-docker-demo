@@ -36,7 +36,7 @@ services:
   tyk-redis:
     image: redis
     ports:
-    - "6380:6380"
+    - "6380:6379"
     volumes:
     - redis-data:/data
     networks:

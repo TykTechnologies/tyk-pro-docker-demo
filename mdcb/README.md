@@ -97,7 +97,7 @@ Edit myorg.json to add this bit (replace existing ones")
 
 Update org with new settings
 ```
-$ curl -X PUT $DASH_URL/admin/organisations/$ORG_ID -H "Admin-Auth: $DASH_ADMIN_SECRET" -d @myorg.json
+curl -X PUT $DASH_URL/admin/organisations/$ORG_ID -H "Admin-Auth: $DASH_ADMIN_SECRET" -d @myorg.json
 ```
 
 Response:
@@ -107,10 +107,11 @@ Response:
 
 ### 6. Run tyk slave gw on LOCAL
 A) go to worker folder
-B) ADD to tyk.conf
-- RPC key (org ID)
-- API key (user API key)
-- connection_string (of VM)
+
+B) Add these to tyk_worker.conf
+- RPC key (org ID) to `slave_options.rpc_key`
+- API key (user API key) `slave_options.api_key`
+- connection_string (of VM) plus port 9090 to `slave_options.connection_string`, ie `10.45.166.51:9090`
 
 C) run
 ```

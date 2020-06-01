@@ -47,6 +47,7 @@ B) Install It
 C) Edit /opt/tyk-sink/tyk_sink.conf
 
 -Add MDCB license to tyk_sink.conf
+
 -Update RedisPort to 6380
 
 D) Run the Service

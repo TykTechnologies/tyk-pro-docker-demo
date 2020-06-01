@@ -1,18 +1,24 @@
 version: '3.3'
 services:
-    tyk-tib:
-        image: tykio/tyk-identity-broker:v0.7.1
-        ports:
-          - "3010:3010"
-        volumes:
-        - ./certs:/opt/certs
-        - ./confs/tib.conf:/opt/tyk-identity-broker/tib.conf
-        - ./confs/profiles.json:/opt/tyk-identity-broker/profiles.json
-        networks:
-        - tyk
-        environment:
-        - TYK_IB_SESSION_SECRET=12345
-
+  tyk-tib:
+    image: tykio/tyk-identity-broker:v0.7.1
+    ports:
+      - "3010:3010"
+    volumes:
+    - ./certs:/opt/certs
+    - ./confs/tib.conf:/opt/tyk-identity-broker/tib.conf
+    - ./confs/profiles.json:/opt/tyk-identity-broker/profiles.json
+    networks:
+    - tyk
+    environment:
+    - TYK_IB_SESSION_SECRET=12345
+  tyk-nginx:
+    image: nginx
+    name: tyk-tib-nginx
+    volumes:
+    - ~/confs/index.html:/usr/share/nginx/html/index.html:ro
+    ports:
+      - 80:80
 
 networks:
     tyk:

@@ -1,47 +1,115 @@
-# This demo is NOT designed for production use or performance testing
-Tyk API Gateway is fully on-premise solution, which include gateway, dashboard and analytics processing pipeline.
-This demo will run Tyk On-premise on your machine, which contains 5 containers: Tyk Gateway, Tyk Dashboard, Tyk Pump, Redis and Mongodb.
-This repo great for proof of concept and demo purpose, but if you want test performance, you need to move each component to separate machine, following our documentation https://tyk.io/docs/.
+# MDCB setup guide
 
-# Tyk Pro Demo using Docker
+### 0. Prequisites
+Note -> These instructions are run on Linux. (AWS Linux 2)
 
-This compose file is designed to provide a quick, simple demo of the Tyk stack, this includes the gateway, the dashboard and the portal.
-
-## Step 1: Map hostnames to IP addresses
-
-Set up your `/etc/hosts` file to include the IP of your docker daemon:
-
+Run these to install Docker, Docker-Compose & Git
 ```
-127.0.0.1 www.tyk-portal-test.com
-127.0.0.1 www.tyk-test.com
-```
-
-Note that the IP may be different depending on your installation, Windows users may find it running on `10.x.x.x`, it is important the URL stays the same because our `setup.sh` assumes this is the one you are using.
-
-## Step 2: Add your dashboard license
-
-Open the `tyk_analytics.conf` file in the `confs/` folder and add your license string to the `"license_key": ""` section.
-
-## Step 3: Initialise the Docker containers
-
-Run docker compose:
-
-```
-docker-compose -f docker-compose.yml -f docker-local.yml up
+sudo yum update -y
+sudo yum install git -y
+sudo yum install -y docker
+sudo service docker start
+sudo usermod -aG docker ec2-user
+sudo su
+sudo curl -L "https://github.com/docker/compose/releases/download/1.25.5/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+sudo chmod +x /usr/local/bin/docker-compose
+sudo ln -s /usr/local/bin/docker-compose /usr/bin/docker-compose
+docker ps
 ```
 
-Please note that this command may take a while to complete, as Docker needs to download and provision all of the containers.
+### 1. Install tyk pro
 
-This will run in non-daemonised mode so you can see all the output. For the next step, once this step is complete, open a new shell:
+A) Clone repo and checkout branch, go to mdcb folder
+```
+git clone https://github.com/TykTechnologies/tyk-pro-docker-demo
+cd tyk-pro-docker-demo/
+git checkout mdcb
+cd mdcb
+```
 
-## Step 4: Bootstrap the Tyk installation
+B) Add tyk pro license to tyk_analytics.conf
 
-Bootstrap the instance:
 
-Open your browser to http://www.tyk-test.com:3000.  You will be presented with the Bootstrap UI to create your first organisation and admin user.
+### 2. Run Stack
+`docker-compose up -d`
 
-Note, if you run into DNS issues with `www.tyk-test.com` while trying to bootstrap through the GUI, you will need to set the `host_config.hostname` value in `tyk_analytics.conf` to the public IP of your Docker daemon or simply use `localhost`
+### 3. Bootstrap the install
+Log on to the Dashboard via `http://<your-host>:3000`
 
-# Tyk Pro Demo using Docker Swarm
+### 4. RUN MDCB from RPM
+A) Download the MDCB package
+`curl -s https://TOKEN:@packagecloud.io/install/repositories/tyk/tyk-mdcb/script.rpm.sh | sudo bash`
 
-Please refer to [docker-swarm.md](docker-swarm.md) for detailed instructions on running this simple deployment on the Docker Swarm with Tyk cluster. Note that in order to have more than one functional gateway node a corresponding license is required.
+B) Install It
+`sudo yum install tyk-sink`
+
+C) Edit /opt/tyk-sink/tyk_sink.conf
+-Add MDCB license to tyk_sink.conf
+-Update RedisPort to 6380
+
+D) Run the Service
+```
+sudo systemctl start tyk-sink
+sudo systemctl enable tyk-sink
+```
+
+Check it's running:
+```
+sudo journalctl -u tyk-sink 
+```
+Output:
+
+<response>
+
+5. Enable Hybrid on Master DC
+
+A) export DASH_ADMIN_SECRET=12345
+B) export DASH_URL=localhost:3000
+C) export ORG_ID=<YOUR_ORG_ID>
+D) curl $DASH_URL/admin/organisations/$ORG_ID -H "Admin-Auth: $DASH_ADMIN_SECRET" | python -mjson.tool > myorg.json
+
+E) Edit myorg.json to add this bit:
+''
+"hybrid_enabled": true,
+  "event_options": {
+    "key_event": {
+      "redis": true
+    },
+    "hashed_key_event": {
+      "redis": true
+    }
+  },
+
+“
+
+F) Update org with new settings
+$ curl -X PUT $DASH_URL/admin/organisations/$ORG_ID -H "Admin-Auth: $DASH_ADMIN_SECRET" -d @myorg.json
+
+Response:
+{"Status":"OK","Message":"Org updated","Meta":null}
+
+5. Run tyk slave gw on LOCAL
+A) go to worker folder
+ADD to tyk.conf
+- RPC key
+- API key
+- connection_string
+Docker-compose up -d
+
+6. Run tyk slave gw on REMOTE
+A) install the shit
+git clone https://github.com/TykTechnologies/tyk-pro-docker-demo
+cd tyk-pro-docker-demo/
+git checkout mdcb
+Cd worker
+
+B) ADD to tyk.conf
+- RPC key
+- API key
+- connection_string
+
+C) Docker-compose up -d
+
+
+7. Install & Run Tib
+docker-compose -f docker-compose-tib.yml up -d

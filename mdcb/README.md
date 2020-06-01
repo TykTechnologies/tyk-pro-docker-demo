@@ -115,7 +115,7 @@ B) Add these to tyk_worker.conf
 
 C) run
 ```
-Docker-compose up -d
+docker-compose up -d
 ```
 
 ### 7. Run tyk slave gw on REMOTE

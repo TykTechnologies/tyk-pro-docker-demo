@@ -14,7 +14,6 @@ services:
     - TYK_IB_SESSION_SECRET=12345
   tyk-nginx:
     image: nginx
-    name: tyk-tib-nginx
     volumes:
     - ~/confs/index.html:/usr/share/nginx/html/index.html:ro
     ports:

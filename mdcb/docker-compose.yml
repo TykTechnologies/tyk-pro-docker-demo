@@ -1,5 +1,18 @@
 version: '3.3'
 services:
+  tyk-mdcb: 
+    image: tykio/tyk-mdcb-docker
+    volumes: 
+    - ./confs/tyk_sink.conf:/opt/tyk-sink/tyk_sink.conf
+    ports:
+    - "9090:9090"
+    depends_on:
+    - tyk-redis
+    - tyk-mongo
+    - tyk-mgateway
+    - tyk-dashboard
+    networks:
+    - tyk
   tyk-dashboard:
     image: tykio/tyk-dashboard:latest
     ports:

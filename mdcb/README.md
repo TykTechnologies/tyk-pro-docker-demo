@@ -35,7 +35,11 @@ B) Add tyk pro license to `confs/tyk_analytics.conf` to the `license_key` variab
 ### 3. Bootstrap the install
 Log on to the Dashboard via `http://<your-host>:3000`
 
-### 4. RUN MDCB from RPM
+### (OPTIONAL) 4. RUN MDCB from RPM
+Prequisites
+-If you would prefer to run the MDCB from RPM, make sure you remove the "tyk-mdcb" service from the `docker-compose.yml` before proceeding.
+-You need to be given a token to download the MDCB package.
+
 A) Download the MDCB package
 
 `curl -s https://TOKEN:@packagecloud.io/install/repositories/tyk/tyk-mdcb/script.rpm.sh | sudo bash`

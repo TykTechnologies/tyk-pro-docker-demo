@@ -27,7 +27,7 @@ Open the `tyk_analytics.conf` file in the `confs/` folder and add your license s
 Run docker compose:
 
 ```
-docker-compose -f docker-compose.yml -f docker-local.yml up
+docker-compose up
 ```
 
 Please note that this command may take a while to complete, as Docker needs to download and provision all of the containers.

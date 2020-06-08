@@ -10,6 +10,8 @@ services:
     depends_on:
     - tyk-redis
     - tyk-mongo
+    volumes:
+    - ./confs/tyk_analytics.conf:/opt/tyk-dashboard/tyk_analytics.conf      
   tyk-gateway:
     image: tykio/tyk-gateway:latest
     ports:
@@ -18,6 +20,9 @@ services:
     - tyk
     depends_on:
     - tyk-redis
+    volumes:
+    - ./confs/tyk.conf:/opt/tyk-gateway/tyk.conf
+    - ./middleware:/opt/tyk-gateway/middleware
   tyk-pump:
     image: tykio/tyk-pump-docker-pub:latest
     networks:
@@ -26,6 +31,8 @@ services:
     - tyk-redis
     - tyk-mongo
     - tyk-gateway
+    volumes:
+    - ./confs/pump.conf:/opt/tyk-pump/pump.conf
   tyk-redis:
     image: redis
     ports:

@@ -1,7 +1,7 @@
 version: '3.3'
 services:
   tyk-dashboard:
-    image: tykio/tyk-dashboard:v3.0.0
+    image: tykio/tyk-dashboard:v3.1.2
     ports:
     - "3000:3000"
     - "5000:5000"
@@ -13,7 +13,7 @@ services:
     volumes:
     - ./confs/tyk_analytics.conf:/opt/tyk-dashboard/tyk_analytics.conf      
   tyk-gateway:
-    image: tykio/tyk-gateway:v3.0.0
+    image: tykio/tyk-gateway:v3.1.2
     ports:
     - "8080:8080"
     networks:

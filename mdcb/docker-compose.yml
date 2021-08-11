@@ -3,7 +3,7 @@ services:
   tyk-mdcb: 
     image: tykio/tyk-mdcb-docker
     volumes: 
-    - ./confs/tyk_sink.conf:/opt/tyk-sink/tyk_sink.conf
+    - ./confs/sink.conf:/opt/tyk-sink/tyk_sink.conf
     ports:
     - "9090:9090"
     depends_on:

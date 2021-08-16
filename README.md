@@ -23,8 +23,8 @@ A) Clone repo and checkout branch, go to mdcb folder
 ```
 git clone https://github.com/TykTechnologies/tyk-pro-docker-demo
 cd tyk-pro-docker-demo/
-git checkout mdcb
-cd mdcb
+git checkout improve-mdcb
+cd improve-mdcb
 ```
 
 B) Add your Tyk Pro license to `confs/tyk_analytics.conf` to the `license_key` variable.
@@ -129,7 +129,7 @@ A) install the following
 ```
 git clone https://github.com/TykTechnologies/tyk-pro-docker-demo
 cd tyk-pro-docker-demo/
-git checkout mdcb
+git checkout improve-mdcb
 cd worker
 ```
 

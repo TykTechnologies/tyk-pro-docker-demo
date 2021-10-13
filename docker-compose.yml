@@ -1,7 +1,7 @@
 version: '3.3'
 services:
   tyk-dashboard:
-    image: tykio/tyk-dashboard:v3.1.2
+    image: tykio/tyk-dashboard:v3.2.2
 
     ports:
     - "3000:3000"
@@ -14,7 +14,7 @@ services:
     - tyk
 
   tyk-gateway:
-    image: tykio/tyk-gateway:v3.1.2
+    image: tykio/tyk-gateway:v3.2.2
 
     ports:
     - "8080:8080"
@@ -29,7 +29,7 @@ services:
     - tyk
 
   tyk-pump:
-    image: tykio/tyk-pump-docker-pub:latest
+    image: tykio/tyk-pump-docker-pub:v1.5
 
     env_file:
       - ./confs/pump.env

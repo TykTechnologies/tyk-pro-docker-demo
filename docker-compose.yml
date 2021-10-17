@@ -29,7 +29,7 @@ services:
     - tyk
 
   tyk-pump:
-    image: tykio/tyk-pump-docker-pub:v1.5
+    image: tykio/tyk-pump-docker-pub:v1.5.1-rc2
 
     env_file:
       - ./confs/pump.env

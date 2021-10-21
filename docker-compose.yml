@@ -1,38 +1,33 @@
 version: '3.3'
 services:
   tyk-dashboard:
-    image: tykio/tyk-dashboard:v3.1.2
+    image: tykio/tyk-dashboard:v3.2.2
     ports:
     - "3000:3000"
     - "5000:5000"
+    env_file:
+    - ./confs/tyk_analytics.env
     networks:
     - tyk
-    depends_on:
-    - tyk-redis
-    - tyk-mongo
-    volumes:
-    - ./confs/tyk_analytics.conf:/opt/tyk-dashboard/tyk_analytics.conf      
+
   tyk-gateway:
-    image: tykio/tyk-gateway:v3.1.2
+    image: tykio/tyk-gateway:v3.2.2
     ports:
     - "8080:8080"
-    networks:
-    - tyk
-    depends_on:
-    - tyk-redis
     volumes:
-    - ./confs/tyk.conf:/opt/tyk-gateway/tyk.conf
     - ./middleware:/opt/tyk-gateway/middleware
-  tyk-pump:
-    image: tykio/tyk-pump-docker-pub:latest
+    env_file:
+    - ./confs/tyk.env
     networks:
     - tyk
-    depends_on:
-    - tyk-redis
-    - tyk-mongo
-    - tyk-gateway
-    volumes:
-    - ./confs/pump.conf:/opt/tyk-pump/pump.conf
+
+  tyk-pump:
+    image: tykio/tyk-pump-docker-pub:v1.5.1-rc2
+    env_file:
+    - ./confs/pump.env
+    networks:
+    - tyk
+
   tyk-redis:
     image: redis
     ports:
@@ -41,6 +36,7 @@ services:
     - redis-data:/data
     networks:
     - tyk
+
   tyk-mongo:
     image: mongo:3.2
     command: ["mongod", "--smallfiles"]

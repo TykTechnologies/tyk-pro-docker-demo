@@ -4,7 +4,6 @@ services:
     image: tykio/tyk-dashboard:v3.2.2
     ports:
     - "3000:3000"
-    - "6000:6000"
     env_file:
     - ./confs/tyk_analytics.env
     networks:

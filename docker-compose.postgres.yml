@@ -1,0 +1,31 @@
+version: '3.9'
+services:
+  tyk-dashboard:
+    environment:
+      - TYK_DB_STORAGE_MAIN_TYPE=postgres
+      - TYK_DB_STORAGE_MAIN_CONNECTIONSTRING=user=default password=topsecretpassword host=tyk-postgres port=5432 database=tyk_analytics
+
+  tyk-pump:
+    env_file:
+      - ./confs/pump.postgres.env
+      
+  tyk-postgres:
+    image: postgres:latest
+    container_name: tyk-postgres
+
+    environment:
+      - POSTGRES_DB=tyk_analytics
+      - POSTGRES_USER=default
+      - POSTGRES_PASSWORD=topsecretpassword
+
+    ports:
+      - "5432:5432"
+
+    volumes:
+      - postgres-data:/data/db
+
+    networks:
+      - tyk
+
+volumes:
+  postgres-data:

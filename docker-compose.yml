@@ -24,19 +24,19 @@ services:
     image: tykio/tyk-pump-docker-pub:v1.5.1
     container_name: tyk-pump
     env_file:
-    - ./confs/pump.env
+      - ./confs/pump.env
     networks:
-    - tyk
+      - tyk
 
   tyk-redis:
     image: redis
     container_name: tyk-redis
     ports:
-    - "6379:6379"
+      - "6379:6379"
     volumes:
-    - redis-data:/data
+      - redis-data:/data
     networks:
-    - tyk
+      - tyk
 
 volumes:
   redis-data:

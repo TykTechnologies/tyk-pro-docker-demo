@@ -13,8 +13,10 @@ Open the `tyk_analytics.env` file in the `confs/` folder and add your license st
 Run docker compose:
 
 ```
-$ docker-compose up
+$ docker-compose -f ./docker-compose.yml -f ./docker-compose.`database_type`.yml up
 ```
+
+`database_type`: can be `mongo` or `postgres`
 
 Please note that this command may take a while to complete, as Docker needs to download and provision all of the containers.
 
@@ -30,5 +32,5 @@ Open your browser to http://localhost:3000.  You will be presented with the Boot
 
 To delete all containers as well as remove all volumes from your host:
 ```
-$ docker-compose down -v
+$ docker-compose -f ./docker-compose.yml -f ./docker-compose.`database_type`.yml down -v
 ```

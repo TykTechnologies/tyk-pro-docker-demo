@@ -1,7 +1,7 @@
 version: '3.9'
 services:
   tyk-dashboard:
-    image: tykio/tyk-dashboard:v4.0.0-rc14
+    image: tykio/tyk-dashboard:v4.0.0
     container_name: tyk-dashboard
     ports:
       - "3000:3000"
@@ -11,7 +11,7 @@ services:
       - tyk
 
   tyk-gateway:
-    image: tykio/tyk-gateway:v4.0.0-rc27
+    image: tykio/tyk-gateway:v4.0.0
     container_name: tyk-gateway
     ports:
       - "8080:8080"

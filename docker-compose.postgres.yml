@@ -26,6 +26,10 @@ services:
 
     networks:
       - tyk
+      
+  tyk-mongo:
+    entrypoint: ["echo", "Docker Mongo service disabled. Using Postgres service instead.", ""]
+    command: []
 
 volumes:
   postgres-data:

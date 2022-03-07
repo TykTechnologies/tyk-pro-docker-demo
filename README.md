@@ -12,11 +12,15 @@ Open the `tyk_analytics.env` file in the `confs/` folder and add your license st
 
 Run docker compose:
 
+With a `Mongo` database:
 ```
-$ docker-compose -f ./docker-compose.yml -f ./docker-compose.`database_type`.yml up
+$ docker-compose up
 ```
 
-`database_type`: can be `mongo` or `postgres`
+With a `PostgreSQL` database:
+```
+$ docker-compose -f ./docker-compose.yml -f ./docker-compose.postgres.yml up
+```
 
 Please note that this command may take a while to complete, as Docker needs to download and provision all of the containers.
 
@@ -28,9 +32,16 @@ Bootstrap the instance:
 
 Open your browser to http://localhost:3000.  You will be presented with the Bootstrap UI to create your first organisation and admin user.
 
-## Bringing down
+## Tear down
 
 To delete all containers as well as remove all volumes from your host:
+
+Mongo:
 ```
-$ docker-compose -f ./docker-compose.yml -f ./docker-compose.`database_type`.yml down -v
+$ docker-compose down -v
+```
+
+PostgreSQL:
+```
+$ docker-compose -f ./docker-compose.yml -f ./docker-compose.postgres.yml down -v
 ```

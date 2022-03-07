@@ -22,7 +22,7 @@ services:
       - "5432:5432"
 
     volumes:
-      - postgres-data:/data/db
+      - db-data:/data/db
 
     networks:
       - tyk
@@ -30,6 +30,3 @@ services:
   tyk-mongo:
     entrypoint: ["echo", "Docker Mongo service disabled. Using Postgres service instead.", ""]
     command: []
-
-volumes:
-  postgres-data:

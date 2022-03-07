@@ -51,14 +51,14 @@ services:
       - "27017:27017"
 
     volumes:
-      - mongo-data:/data/db
+      - db-data:/data/db
 
     networks:
       - tyk
 
 volumes:
   redis-data:
-  mongo-data:
+  db-data:
 
 networks:
   tyk:

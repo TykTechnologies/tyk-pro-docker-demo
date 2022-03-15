@@ -6,6 +6,7 @@ services:
     environment:
       - TYK_DB_STORAGE_MAIN_TYPE=mongo
       - TYK_DB_STORAGE_MAIN_CONNECTIONSTRING=mongodb://tyk-mongo:27017/tyk_analytics
+      # Mongodb connection string env variable used for versions older than 4.x.x.
       # - TYK_DB_MONGOURL=mongodb://tyk-mongo:27017/tyk_analytics
     ports:
       - "3000:3000"

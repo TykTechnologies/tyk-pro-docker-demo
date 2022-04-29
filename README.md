@@ -6,7 +6,7 @@ This repo great for proof of concept and demo purpose, but if you want test perf
 
 ## Step 1: Add your dashboard license
 
-Open the `tyk_analytics.env` file in the `confs/` folder and add your license string to the first line.
+Create `.env` file `cp .env.example .env`. Then add your license string to `TYK_DB_LICENSEKEY`.
 
 ## Step 2: Initialise the Docker containers
 

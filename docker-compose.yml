@@ -4,6 +4,7 @@ services:
     image: tykio/tyk-dashboard:v4.0.0
     container_name: tyk-dashboard
     environment:
+      - TYK_DB_LICENSEKEY=${TYK_DB_LICENSEKEY}
       - TYK_DB_STORAGE_MAIN_TYPE=mongo
       - TYK_DB_STORAGE_MAIN_CONNECTIONSTRING=mongodb://tyk-mongo:27017/tyk_analytics
     ports:

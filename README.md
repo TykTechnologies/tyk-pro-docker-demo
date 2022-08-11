@@ -1,6 +1,8 @@
 # Tyk Pro Demo using Docker
 
-This compose file is designed to provide a quick, simple demo of the Tyk stack, this includes Tyk Gateway, Tyk Dashboard, Tyk Portal, Mongo, & Redis.
+This compose file is designed to provide a quick, simple demo of the Tyk stack, this includes Tyk Gateway, Tyk Dashboard,  Mongo, & Redis.
+
+> **Note**: This demo no longer gives you access to the Tyk Portal
 
 This repo great for proof of concept and demo purpose, but if you want test performance, you need to move each component to separate machine, following our documentation https://tyk.io/docs/.
 

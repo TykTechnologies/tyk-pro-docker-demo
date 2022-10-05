@@ -34,6 +34,19 @@ Bootstrap the instance:
 
 Open your browser to http://localhost:3000.  You will be presented with the Bootstrap UI to create your first organisation and admin user.
 
+## Step 4: Bootstrap the Portal
+
+
+1. Add an /etc/hosts entry for "tyk-portal.localhost" to resolve to "127.0.0.1".
+2. Get your "Tyk Dashboard API Access Credential" and your "Organisation ID" from your User Profile  in the Dashboard and add them to `./scripts/portal_bootstrap.sh"
+3. Run `./portal_bootstrap.sh` from terminal
+4. Restart the Tyk Dashboard container:
+```
+$ docker restart tyk-dashboard
+```
+
+5. Now you can access your Portal on "tyk-portal.localhost:3000/portal"
+
 ## Tear down
 
 To delete all containers as well as remove all volumes from your host:

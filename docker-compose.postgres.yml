@@ -3,11 +3,17 @@ services:
   tyk-dashboard:
     environment:
       - TYK_DB_STORAGE_MAIN_TYPE=postgres
-      - TYK_DB_STORAGE_MAIN_CONNECTIONSTRING=user=default password=topsecretpassword host=tyk-postgres port=5432 database=tyk_analytics
+      - TYK_DB_STORAGE_MAIN_CONNECTIONSTRING=user=postgres password=topsecretpassword host=tyk-postgres port=5432 database=tyk_analytics
+    depends_on:
+      tyk-postgres:
+        condition: service_healthy
 
   tyk-pump:
     env_file:
       - ./confs/pump.postgres.env
+    depends_on:
+      tyk-postgres:
+        condition: service_healthy
       
   tyk-postgres:
     image: postgres:latest
@@ -15,7 +21,7 @@ services:
 
     environment:
       - POSTGRES_DB=tyk_analytics
-      - POSTGRES_USER=default
+      - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=topsecretpassword
 
     ports:
@@ -23,6 +29,12 @@ services:
 
     volumes:
       - db-data:/data/db
+
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
 
     networks:
       - tyk

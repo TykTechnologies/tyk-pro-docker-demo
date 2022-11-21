@@ -14,19 +14,19 @@ Create `.env` file `cp .env.example .env`. Then add your license string to `TYK_
 
 Run docker compose:
 
-With a `Mongo` database:
+With a `PostgreSQL` database:
 ```
 $ docker-compose up
 ```
 
-With a `PostgreSQL` database:
+With a `Mongo` database:
 ```
-$ docker-compose -f ./docker-compose.yml -f ./docker-compose.postgres.yml up
+$ docker-compose -f ./docker-compose.yml -f ./docker-compose.mongo.yml up
 ```
 
 Please note that this command may take a while to complete, as Docker needs to download and provision all of the containers.
 
-This will run in non-daemonised mode so you can see all the output.
+This will run in non-daemonised mode so you can see all the output. 
 
 ## Step 3: Bootstrap the Tyk installation
 
@@ -51,12 +51,12 @@ $ docker restart tyk-dashboard
 
 To delete all containers as well as remove all volumes from your host:
 
-Mongo:
+PostgreSQL:
 ```
 $ docker-compose down -v
 ```
 
-PostgreSQL:
+MongoDB:
 ```
-$ docker-compose -f ./docker-compose.yml -f ./docker-compose.postgres.yml down -v
+$ docker-compose -f ./docker-compose.yml -f ./docker-compose.mongo.yml down -v
 ```

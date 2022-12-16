@@ -1,7 +1,7 @@
 version: '3.9'
 services:
   tyk-dashboard:
-    image: tykio/tyk-dashboard:v4.2.3
+    image: tykio/tyk-dashboard:v4.3
     container_name: tyk-dashboard
     environment:
       - TYK_DB_LICENSEKEY=${TYK_DB_LICENSEKEY}
@@ -18,7 +18,7 @@ services:
       - tyk
 
   tyk-gateway:
-    image: tykio/tyk-gateway:v4.2.3
+    image: tykio/tyk-gateway:v4.3
     container_name: tyk-gateway
     ports:
       - "8080:8080"
@@ -28,7 +28,7 @@ services:
       - tyk
 
   tyk-pump:
-    image: tykio/tyk-pump-docker-pub:v1.5.1
+    image: tykio/tyk-pump-docker-pub:v1.7
     container_name: tyk-pump
     env_file:
       - ./confs/pump.env

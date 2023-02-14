@@ -62,7 +62,7 @@ services:
       - "5432:5432"
 
     volumes:
-      - db-data:/data/db
+      - postgres-data:/var/lib/postgresql/data
 
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U postgres"]
@@ -75,7 +75,7 @@ services:
   
 volumes:
   redis-data:
-  db-data:
+  postgres-data:
 
 networks:
   tyk:

@@ -1,18 +1,18 @@
 # Tyk Pro Demo using Docker
 
-This compose file is designed to provide a quick, simple demo of the Tyk stack, this includes Tyk Gateway, Tyk Dashboard,  Mongo, & Redis.
+This compose file is designed to provide a quick, simple demo of the Tyk stack. It stands up instances of Tyk Gateway, Tyk Dashboard, Tyk Pump, Redis, and Mongo or PostgreSQL.
 
 > **Note**: This demo no longer gives you access to the Tyk Portal
 
-This repo great for proof of concept and demo purpose, but if you want test performance, you need to move each component to separate machine, following our documentation https://tyk.io/docs/.
+This repo is great for proof of concept and demo purposes, but if you want to test performance, we strongly recommend that you move each component to a separate machine, following our documentation https://tyk.io/docs/.
 
 ## Step 1: Add your dashboard license
 
-Create `.env` file `cp .env.example .env`. Then add your license string to `TYK_DB_LICENSEKEY`.
+Create `.env` file `cp .env.example .env`. Then add your Tyk Dashboard license string to `TYK_DB_LICENSEKEY` within your new `.env`.
 
 ## Step 2: Initialise the Docker containers
 
-Run docker compose:
+Run Docker compose:
 
 With a `PostgreSQL` database:
 ```
@@ -34,18 +34,7 @@ Bootstrap the instance:
 
 Open your browser to http://localhost:3000.  You will be presented with the Bootstrap UI to create your first organisation and admin user.
 
-## Step 4: Bootstrap the Portal
-
-
-1. Add an /etc/hosts entry for "tyk-portal.localhost" to resolve to "127.0.0.1".
-2. Get your "Tyk Dashboard API Access Credential" and your "Organisation ID" from your User Profile  in the Dashboard and add them to `./scripts/portal_bootstrap.sh"
-3. Run `./portal_bootstrap.sh` from terminal
-4. Restart the Tyk Dashboard container:
-```
-$ docker restart tyk-dashboard
-```
-
-5. Now you can access your Portal on "tyk-portal.localhost:3000/portal"
+Enjoy exploring the power of Tyk!
 
 ## Tear down
 

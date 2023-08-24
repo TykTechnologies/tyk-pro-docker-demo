@@ -1,11 +1,19 @@
 #!/bin/bash
 
 
-read -n2048 -s -p 'Please enter your Tyk Pro License key: ' license_key
-echo TYK_DB_LICENSEKEY=$license_key >> confs/tyk_analytics.env
+if grep -q "TYK_DB_LICENSEKEY" confs/tyk_analytics.env; then
+    echo "TYK_DB_LICENSEKEY exists in the file! Skipping.."
+else 
+    read -n2048 -s -p 'Please enter your Tyk Pro License key: ' license_key
+    echo TYK_DB_LICENSEKEY=$license_key >> confs/tyk_analytics.env
+fi
 
 echo "Bringing Tyk Trial deployment UP..."
 docker-compose up -d
+if [ $? -ne 0 ]; then
+    echo "docker-compose up failed"
+    exit 1
+fi
 
 status=""
 desired_status="200"

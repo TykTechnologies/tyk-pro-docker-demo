@@ -1,7 +1,7 @@
 #!/bin/bash
 
 
-if grep -q "TYK_DB_LICENSEKEY" confs/tyk_analytics.env; then
+if grep -q "TYK_DB_LICENSEKEY" ./confs/tyk_analytics.env; then
     echo "TYK_DB_LICENSEKEY exists in the file! Skipping.."
 else 
     read -n2048 -s -p 'Please enter your Tyk Pro License key: ' license_key
@@ -193,9 +193,4 @@ Please sign in at http://localhost:3000
 user: dev@tyk.io
 pw: topsecret
 
-And try to curl the Gateway (blocked)
-
-$ curl localhost:8080/httpbin/get
-
-and with a key:
-$ curl localhost:8080/httpbin/get -H "Authorization: '$httpbinApiKey'"'
+Httpbin API Key: '$httpbinApiKey''

@@ -177,8 +177,7 @@ createHttpbinKey=$(curl -s --location 'localhost:3000/api/keys' \
     "allowance": -1,
     "per": -1,
     "quota_max": -1,
-    "rate": -1,
-    "alias": "itsme@tyk.io"
+    "rate": -1
 }')
 
 httpbinApiKey=$(echo "$createHttpbinKey" | sed -n 's/.*"key_id":"\([^"]*\)".*/\1/p')

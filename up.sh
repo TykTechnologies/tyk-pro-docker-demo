@@ -24,18 +24,14 @@ while [ "$status" != "$desired_status" ] && [ $attempt_count -le $attempt_max ]
 do
     status=$(curl -s -o /dev/null -I -w "%{http_code}" http://localhost:3000/hello)
 
-    if [ "$status" == "$desired_status" ]; then
-        echo "    Attempt $attempt_count succeeded, received '$status'"
-    elif [ $attempt_count -eq $attempt_max ]; then
+    if [ $attempt_count -eq $attempt_max ]; then
         echo "    Attempt $attempt_count of $attempt_max unsuccessful, received '$status'"
-    else
-        echo "    Attempt $attempt_count unsuccessful, received '$status'"
     fi
     attempt_count=$((attempt_count + 1))
     sleep 1
 done
 
-tput setaf 2; echo "Tyk configured. Bootstrapping environment..."
+echo "Tyk configured. Bootstrapping environment..."
 
 # Create default Org
 createOrgResponse=$(curl -s --location 'http://localhost:3000/admin/organisations/' \
@@ -85,10 +81,121 @@ curl -s -o /dev/null --location 'http://localhost:3000/api/users/'$user_id'/acti
 }'
 echo "Created user password"
 
+
+# Creating API
+createApiResponse=$(curl -s --location 'http://localhost:3000/api/apis' \
+--header 'authorization: '$user_api_key'' \
+--header 'Content-Type: application/json' \
+--data '{
+  "api_definition": {
+      "name": "Httpbin",
+      "auth": {
+          "auth_header_name": "authorization"
+      },
+      "definition": {
+          "location": "header",
+          "key": ""
+      },
+      "proxy": {
+          "target_url": "http://echo.tyk-demo.com:8080/trial",
+          "listen_path": "/httpbin"
+      },
+      "version_data": {
+        "use_extended_paths": true,
+        "not_versioned": true,
+        "versions": {
+          "Default": {
+              "expires": "",
+              "name": "Default",
+              "paths": {
+                "ignored": [],
+                "white_list": [],
+                "black_list": []
+              },
+              "use_extended_paths": false
+          }
+        }
+      },
+      "enable_ip_whitelisting": true,
+      "active": true,
+      "enable_batch_request_support": true
+  }
+}')
+apiId=$(echo "$createApiResponse" | awk -F'"' '/"ID":/{print $(NF-1)}')
+echo "Created Httpbin sample API"
+
+# Create Policy
+createPolicyResponse=$(curl -s --location 'localhost:3000/api/portal/policies/' \
+--header 'Authorization: '$user_api_key'' \
+--header 'Content-Type: application/json' \
+--data '{
+    "access_rights": {
+        "'$apiId'": {
+            "allowed_urls": [],
+            "api_id": "'$apiId'",
+            "api_name": "Httpbin",
+            "limit": null,
+            "versions": [
+                "Default"
+            ]
+        }
+    },
+    "active": true,
+    "name": "Default Security Policyy",
+    "org_id": "'$orgId'",
+    "per": 10,
+    "rate": 2,
+    "quota_max": -1,
+    "quota_remaining": -1,
+    "quota_renewal_rate": -1,
+    "quota_renews": -1,
+    "throttle_interval": -1,
+    "throttle_retry_limit": -1,
+    "tags": [],
+    "allowance": 0,
+    "auth_type": "other",
+    "expires": 0,
+    "key_expires_in": 0,
+    "last_check": 0
+}')
+
+policyId=$(echo "$createPolicyResponse" | grep -o '"Message":"[^"]*"' | cut -d":" -f2 | tr -d '"')
+echo "Created HttpBin Security Policy"
+
+
+sleep 4
+
+# Create Httpbin API key
+createHttpbinKey=$(curl -s --location 'localhost:3000/api/keys' \
+--header 'authorization: '$user_api_key'' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+     "apply_policies": [
+         "'$policyId'"
+     ],
+    "org_id": "'$orgId'",
+    "allowance": -1,
+    "per": -1,
+    "quota_max": -1,
+    "rate": -1,
+    "alias": "itsme@tyk.io"
+}')
+
+httpbinApiKey=$(echo "$createHttpbinKey" | sed -n 's/.*"key_id":"\([^"]*\)".*/\1/p')
+echo "Created Httpbin API Key"
+
+
+tput setaf 2;
 echo '
 ---------------------------
 Please sign in at http://localhost:3000
 
 user: dev@tyk.io
 pw: topsecret
-'
+
+And try to curl the Gateway (blocked)
+
+$ curl localhost:8080/httpbin/get
+
+and with a key:
+$ curl localhost:8080/httpbin/get -H "Authorization: '$httpbinApiKey'"'

@@ -191,4 +191,11 @@ Please sign in at http://localhost:3000
 user: dev@tyk.io
 pw: topsecret
 
-Httpbin API Key: '$keyName''
+Your Tyk Gateway is found at http://localhost:8080
+
+Save the below API key to access the demo Httpbin API
+Httpbin API Key: '$httpbinApiKey'
+
+Press Enter to exit'
+
+read

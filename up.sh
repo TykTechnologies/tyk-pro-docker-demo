@@ -166,7 +166,8 @@ echo "Created HttpBin Security Policy"
 sleep 4
 
 # Create Httpbin API key
-createHttpbinKey=$(curl -s --location 'localhost:3000/api/keys' \
+keyName=my_custom_key
+curl -s -o /dev/null --location 'localhost:3000/api/keys/'$keyName \
 --header 'authorization: '$user_api_key'' \
 --header 'Content-Type: application/json' \
 --data-raw '{
@@ -178,9 +179,7 @@ createHttpbinKey=$(curl -s --location 'localhost:3000/api/keys' \
     "per": -1,
     "quota_max": -1,
     "rate": -1
-}')
-
-httpbinApiKey=$(echo "$createHttpbinKey" | sed -n 's/.*"key_id":"\([^"]*\)".*/\1/p')
+}'
 echo "Created Httpbin API Key"
 
 
@@ -192,4 +191,4 @@ Please sign in at http://localhost:3000
 user: dev@tyk.io
 pw: topsecret
 
-Httpbin API Key: '$httpbinApiKey''
+Httpbin API Key: '$keyName''

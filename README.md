@@ -1,6 +1,6 @@
 # Tyk Pro Demo using Docker
 
-> **Note**: This demo does not give you access to the Tyk Portal
+> **Note**: The quickstart demo does not give you access to the Tyk Enterprise Developer Portal.  See Advanced Options if the Enterprise Developer Portal is required.
 
 ## Quick start
 
@@ -8,13 +8,18 @@
 
 - [Docker](https://docs.docker.com/get-docker/)
 
-Run these commands:
+Once you have a license, Run these commands:
 
 1. `git clone https://github.com/TykTechnologies/tyk-pro-docker-demo && cd tyk-pro-docker-demo`
 
-2. `docker-compose up`
+2. `up.sh`
 
-Then navigate to [http://localhost:3000](http://localhost:3000) and input the licence key we've emailed you on signup
+hint: you may need to give the executable permissions if you have an error:
+```bash
+chmod +x up.sh
+```
+
+Then check the terminal output to log in with your created user.
 
 ## Advanced
 
@@ -25,6 +30,15 @@ following command.
 
 ```
 $ docker-compose -f ./docker-compose.yml -f ./docker-compose.mongo.yml up
+```
+
+### Enterprise Developer Portal:
+
+The quick start does not include the latest Enterprise Developer Portal, only the Classic Portal which is bundled in with the Dashboard.  To include the Enterprise Developer Portal run the
+following command.
+
+```
+$ docker-compose -f ./docker-compose.yml -f ./docker-compose.enterprise-portal.yml up
 ```
 
 ### Cleanup Docker Containers
@@ -41,6 +55,12 @@ MongoDB:
 
 ```
 $ docker-compose -f ./docker-compose.yml -f ./docker-compose.mongo.yml down -v
+```
+
+Enterprise Developer Portal:
+
+```
+$ docker-compose -f ./docker-compose.yml -f ./docker-compose.enterprise-portal.yml down -v
 ```
 
 ### How to enable TLS in Tyk Gateway and Tyk Dashboard

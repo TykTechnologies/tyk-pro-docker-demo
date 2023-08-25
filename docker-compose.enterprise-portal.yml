@@ -1,0 +1,37 @@
+version: '3.9'
+services:
+  tyk-ent-portal:
+    depends_on:
+      - tyk-ent-portal-postgres
+    image: tykio/portal:v1.5.0
+    command: --bootstrap
+    environment:
+      - PORTAL_LICENSEKEY=${TYK_DB_LICENSEKEY}
+    ports:
+      - 3001:3001
+    env_file:
+      - ./confs/tyk_portal.env
+    networks:
+      - tyk
+
+  tyk-ent-portal-postgres:
+    image: postgres:latest
+    container_name: tyk-portal-postgres
+    environment:
+      - POSTGRES_DB=tyk_portal
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=topsecretpassword
+    ports:
+      - "5433:5432"
+    volumes:
+      - ent-portal-postgres-data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    networks:
+      - tyk
+  
+volumes:
+  ent-portal-postgres-data:

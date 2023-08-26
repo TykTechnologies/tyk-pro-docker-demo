@@ -8,24 +8,28 @@
 
 - [Docker](https://docs.docker.com/get-docker/)
 
-Once you have a license, Run these commands:
+Once you have a license, Run these commands in Terminal:
 
-1. `git clone https://github.com/TykTechnologies/tyk-pro-docker-demo && cd tyk-pro-docker-demo`
-
-2. `up.sh`
+```
+git clone https://github.com/TykTechnologies/tyk-pro-docker-demo && cd tyk-pro-docker-demo && up.sh
+```
+If you're using PowerShell:
+```
+git clone https://github.com/TykTechnologies/tyk-pro-docker-demo.git; cd tyk-pro-docker-demo; ./up.sh
+```
 
 hint: you may need to give the executable permissions if you have an error:
 ```bash
 chmod +x up.sh
 ```
 
-Then check the terminal output to log in with your created user.
+You'll be prompted to paste your license. Once the bootstrap is complete, check the terminal output to log in with your created user.
 
 ## Advanced
 
 ### Use a `Mongo` database:
 
-The quick start uses PostgreSQL database. To use a Mongo database issue the
+The quick start uses PostgreSQL database. To use a Mongo database, issue the
 following command.
 
 ```

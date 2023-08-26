@@ -194,7 +194,7 @@ pw: topsecret
 Your Tyk Gateway is found at http://localhost:8080
 
 Save the below API key to access the demo Httpbin API
-Httpbin API Key: '$httpbinApiKey'
+Httpbin API Key: '$keyName'
 
 Press Enter to exit'
 

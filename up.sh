@@ -6,6 +6,7 @@ if grep -q "TYK_DB_LICENSEKEY" ./confs/tyk_analytics.env; then
 else 
     read -n2048 -s -p 'Please enter your Tyk Pro License key: ' license_key
     echo TYK_DB_LICENSEKEY=$license_key >> confs/tyk_analytics.env
+    echo PORTAL_LICENSEKEY=$license_key >> confs/tyk_portal.env
 fi
 
 echo "Bringing Tyk Trial deployment UP..."
@@ -192,9 +193,6 @@ user: dev@tyk.io
 pw: topsecret
 
 Your Tyk Gateway is found at http://localhost:8080
-
-Save the below API key to access the demo Httpbin API
-Httpbin API Key: '$httpbinApiKey'
 
 Press Enter to exit'
 

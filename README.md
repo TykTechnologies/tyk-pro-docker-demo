@@ -34,12 +34,10 @@ $ docker-compose -f ./docker-compose.yml -f ./docker-compose.mongo.yml up
 
 ### Enterprise Developer Portal:
 
-The quick start does not include the latest Enterprise Developer Portal, only the Classic Portal which is bundled in with the Dashboard.  To include the Enterprise Developer Portal run the
-following command.
+The quick start includes the latest Enterprise Developer Portal
 
-```
-$ docker-compose -f ./docker-compose.yml -f ./docker-compose.enterprise-portal.yml up
-```
+Please visit: http://localhost:3001
+to login with the credentials in `./confs/tyk_portal.env`
 
 ### Cleanup Docker Containers
 

@@ -1,7 +1,5 @@
 # Tyk Pro Demo using Docker
 
-> **Note**: The quickstart demo does not give you access to the Tyk Enterprise Developer Portal.  See Advanced Options if the Enterprise Developer Portal is required.
-
 ## Quick start
 
 **Prerequisites**
@@ -53,12 +51,6 @@ MongoDB:
 
 ```
 $ docker-compose -f ./docker-compose.yml -f ./docker-compose.mongo.yml down -v
-```
-
-Enterprise Developer Portal:
-
-```
-$ docker-compose -f ./docker-compose.yml -f ./docker-compose.enterprise-portal.yml down -v
 ```
 
 ### How to enable TLS in Tyk Gateway and Tyk Dashboard

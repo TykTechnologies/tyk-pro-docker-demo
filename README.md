@@ -1,7 +1,5 @@
 # Tyk Pro Demo using Docker
 
-> **Note**: This demo does not give you access to the Tyk Portal
-
 ## Quick start
 
 **Prerequisites**
@@ -31,6 +29,13 @@ following command.
 ```
 $ docker-compose -f ./docker-compose.yml -f ./docker-compose.mongo.yml up
 ```
+
+### Enterprise Developer Portal:
+
+The quick start includes the latest Enterprise Developer Portal
+
+Please visit: http://localhost:3001
+to login with the credentials in `./confs/tyk_portal.env`
 
 ### Cleanup Docker Containers
 

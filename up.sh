@@ -183,6 +183,8 @@ curl -s -o /dev/null --location 'localhost:3000/api/keys/'$keyName \
 }'
 echo "Created Httpbin API Key"
 
+# Send a setup ping
+curl -s -o /dev/null http://localhost:8080/httpbin/anything/hello -H "Authorization: my_custom_key"
 
 tput setaf 2;
 echo '

@@ -3,7 +3,7 @@ services:
   tyk-dashboard:
     environment:
       - TYK_DB_STORAGE_MAIN_TYPE=mongo
-      - TYK_DB_STORAGE_MAIN_CONNECTIONSTRING=mongodb://tyk-mongo:27017/tyk_analytics
+      - TYK_DB_STORAGE_MAIN_CONNECTIONSTRING=mongodb://host.docker.internal:27017/tyk_analytics
 
   tyk-pump:
     env_file:
@@ -22,6 +22,8 @@ services:
 
     networks:
       - tyk
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
 
 volumes:
   db-data:

@@ -15,6 +15,9 @@ services:
       - ./confs/tyk_analytics.env
     networks:
       - tyk
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+
   tyk-ent-portal:
     image: tykio/portal:v1.5.0
     command: --bootstrap
@@ -24,6 +27,8 @@ services:
       - ./confs/tyk_portal.env
     networks:
       - tyk
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
 
   tyk-gateway:
     image: tykio/tyk-gateway:v5.1.2
@@ -34,6 +39,8 @@ services:
       - ./confs/tyk.env
     networks:
       - tyk
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
 
   tyk-pump:
     image: tykio/tyk-pump-docker-pub:v1.8
@@ -46,6 +53,8 @@ services:
         condition: service_healthy
     networks:
       - tyk
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
 
   tyk-redis:
     image: redis
@@ -56,6 +65,8 @@ services:
       - redis-data:/data
     networks:
       - tyk
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
 
   tyk-postgres:
     image: postgres:latest
@@ -80,6 +91,8 @@ services:
 
     networks:
       - tyk
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
   
 volumes:
   redis-data:

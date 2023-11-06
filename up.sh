@@ -99,7 +99,8 @@ createApiResponse=$(curl -s --location 'http://localhost:3000/api/apis' \
       },
       "proxy": {
           "target_url": "http://echo.tyk-demo.com:8080/trial",
-          "listen_path": "/httpbin"
+          "listen_path": "/httpbin",
+          "strip_listen_path": true
       },
       "version_data": {
         "use_extended_paths": true,

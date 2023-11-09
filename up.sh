@@ -1,12 +1,21 @@
 #!/bin/bash
 
+# Path to the .env file
+env_file=".env"
 
-if grep -q "TYK_DB_LICENSEKEY" ./confs/tyk_analytics.env; then
-    echo "TYK_DB_LICENSEKEY exists in the file! Skipping.."
-else 
+# Check if the .env file exists
+if [ -f "$env_file" ]; then
+    echo ".env file already exists. Skipping creation."
+else
+    # The .env file does not exist, create it and prompt for the license key
+    echo "Creating .env file..."
+    touch "$env_file"
+
     read -n2048 -s -p 'Please enter your Tyk Pro License key: ' license_key
-    echo TYK_DB_LICENSEKEY=$license_key >> confs/tyk_analytics.env
-    echo PORTAL_LICENSEKEY=$license_key >> confs/tyk_portal.env
+    echo
+
+    echo "DASH_LICENSE=$license_key" >> "$env_file"
+    echo ".env file created and keys added."
 fi
 
 echo "Bringing Tyk Trial deployment UP..."

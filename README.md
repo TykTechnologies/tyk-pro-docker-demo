@@ -10,7 +10,9 @@ Once you have a license, Run these commands:
 
 1. `git clone https://github.com/TykTechnologies/tyk-pro-docker-demo && cd tyk-pro-docker-demo`
 
-2. `up.sh`
+2. For a bootstrapped install, run `up.sh`
+OR
+2. Add your Tyk Dashboard license to .env (see .env.example) and run `docker-compose up`
 
 hint: you may need to give the executable permissions if you have an error:
 ```bash

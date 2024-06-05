@@ -20,7 +20,7 @@ OR
 `chmod +x up.sh`
 
 
-3. The script sends to the STDOUT the details you need to open and log in to Tyk Dashobard:
+4. The script sends to the STDOUT the details you need to open and log in to Tyk Dashobard:
 ```
 ---------------------------
 Please sign in at http://localhost:3000

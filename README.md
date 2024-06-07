@@ -1,4 +1,22 @@
-# Tyk Pro Demo using Docker
+# Tyk Pro Streams Demo using Docker and Kafka
+
+This repo will show you how to use kafka with Tyk streams
+
+## Docker images included in this repo
+1. Kafka and zookeeper - to run kafka exposed at either (localhost:9093 - if you want to connect from outside or kafka:9092 if you want to connect from a container in the same network as kafka)
+2. publisher - A golang program that publishes  orders to kafka's instrument.json.AMZN topic every 2 seconds the json published looks as follows:
+  ```json
+{
+  "customer_id": "fe5df941-c9bc-405e-82c6-1ffd8d434626",
+  "order_value": 1492,
+  "timestamp": 1717737432
+}
+```
+3. tyk-dashboard - Tyk dashboard to manage you apis
+4. tyk-ent-portal - Tyk enterprice developer portal
+5. tyk-gateway - tyk gateway
+6. 
+       
 
 ## Quick start
 
@@ -10,7 +28,7 @@
 
 ### Deploying Tyk
 
-1. Close the repo: `git clone https://github.com/TykTechnologies/tyk-pro-docker-demo && cd tyk-pro-docker-demo`
+1. Clone the repo and checkout to the kafka branch: `git clone https://github.com/TykTechnologies/tyk-pro-docker-demo && cd tyk-pro-docker-demo && git checkout kafka`
 
 2. For a bootstrapped install, run `up.sh`
 OR
@@ -33,106 +51,55 @@ Your Tyk Gateway is found at http://localhost:8080
 Press Enter to exit
 ```
 
-## Advanced
+###  Configuring a Kafka stream
+- In the Tyk Dashboard, create a new API (For the api style select OpenApi). Click the +CONFIGURE API button to continue.
+- Navigate to the Streaming section and click on Add Stream.
+- Provide a name for your stream in the Stream name textbox
+- In the Stream configuration, define your stream input and output as follows:
 
-### Use a `Mongo` database:
-
-The quick start uses PostgreSQL database. To use a Mongo database issue the
-following command.
-
+```yaml
+input:
+  kafka:
+    addresses:
+      - kafka:9092
+    consumer_group: tyk
+    topics:
+      - instrument.json.AMZN
+output:
+  http_server:
+    allowed_verbs:
+      - GET
+    path: /instruments
+    stream_path: /instruments/stream
+    ws_path: /instruments/subscribe
+pipeline:
+  processors:
+    - bloblang: |
+        root = if this.order_value > 1000 {
+          this
+        } else {
+          deleted()
+        }
+    - branch:
+        processors:
+          - http:
+              headers:
+                Content-Type: application/json
+              url: https://httpbin.org/ip
+              verb: GET
+        request_map: root = ""
+        result_map: root.origin = this.origin
+    - bloblang: |
+        root.high_order = true
+        root = this.merge({ "high_value_order": true })
 ```
-$ docker-compose -f ./docker-compose.yml -f ./docker-compose.mongo.yml up
-```
+- save you api definition
 
-### Cleanup Docker Containers
+### Testing Your Async API
+Let's test the API we just created.
+1. Send the request below using curl to stream orders
+  curl http://localhost:8080/kafka/instruments/stream
 
-To delete all docker containers as well as remove all volumes from your host:
+After you send this request you will start receiving streams messages like below:
 
-PostgreSQL:
-
-```
-$ docker-compose down -v
-```
-
-MongoDB:
-
-```
-$ docker-compose -f ./docker-compose.yml -f ./docker-compose.mongo.yml down -v
-```
-</br>
-
-### Running the Enterprise Developer Portal:
-
-#### Prerequisites - a license
-
-If you have a license for the portal add it as an env var `PORTAL_LICENSEKEY` in `.env`.
-If you don't, please contact support@tyk.io
-**Note:** The bootstrap process will fail if the licence is not present.
-
-
-The quick start includes the latest Enterprise Developer Portal or any version defined in `.env` with `PORTAL_VERSION` env var.
-
-Please visit: [http://localhost:3001](http://localhost:3001)
-Login with the credentials in `./confs/tyk_portal.env`
-
-</br>
-
-### Enable TLS in Tyk Gateway and Tyk Dashboard
-
-If you need, generate self-signed certificates for Dashboard and Gateway, e.g.
-
-```
-$ openssl req -x509 -newkey rsa:4096 -keyout tyk-gateway-private-key.pem -out tyk-gateway-certificate.pem -subj "/CN=*.localhost,tyk-*" -days 365 -nodes
-
-$ openssl req -x509 -newkey rsa:4096 -keyout tyk-dashboard-private-key.pem -out tyk-dashboard-certificate.pem -subj "/CN=*.localhost,tyk-*" -days 365 -nodes
-```
-
-#### Enable TLS in Gateway conf (`tyk.env`)
-
-```env
-TYK_GW_POLICIES_POLICYCONNECTIONSTRING=https://tyk-dashboard:3000
-TYK_GW_DBAPPCONFOPTIONS_CONNECTIONSTRING=https://tyk-dashboard:3000
-TYK_GW_HTTPSERVEROPTIONS_USESSL=true
-TYK_GW_HTTPSERVEROPTIONS_CERTIFICATES=[{"domain_name":"localhost","cert_file":"certs/tyk-gateway-certificate.pem","key_file":"certs/tyk-gateway-private-key.pem"}]
-TYK_GW_HTTPSERVEROPTIONS_SSLINSECURESKIPVERIFY=true
-```
-
-#### Enable TLS in Dashboard conf (`tyk_analytics.env`)
-
-```env
-TYK_DB_TYKAPI_HOST=https://tyk-gateway
-TYK_DB_HTTPSERVEROPTIONS_USESSL=true
-TYK_DB_HTTPSERVEROPTIONS_CERTIFICATES=[{"domain_name":"localhost","cert_file":"certs/tyk-dashboard-certificate.pem","key_file":"certs/tyk-dashboard-private-key.pem"}]
-TYK_DB_HTTPSERVEROPTIONS_SSLINSECURESKIPVERIFY=true
-```
-
-#### Update docker compose to add certificate volume mounts
-
-
-##### Tyk Dashboard
-
-```
-volumes:
-   - ./certs/tyk-dashboard-certificate.pem/:/opt/tyk-dashboard/certs/tyk-dashboard-certificate.pem
-   - ./certs/tyk-dashboard-private-key.pem/:/opt/tyk-dashboard/certs/tyk-dashboard-private-key.pem
-```
-
-##### Tyk Gateway
-
-```
-volumes:
-   - ./certs/tyk-gateway-certificate.pem/:/opt/tyk-gateway/certs/tyk-gateway-certificate.pem
-   - ./certs/tyk-gateway-private-key.pem/:/opt/tyk-gateway/certs/tyk-gateway-private-key.pem
-```
-
-</br>
-
-### Tyk Streams
-To use Tyk Stream you need to run the deployment with specific versions of Tyk. Update your `.env` file as follows:
-```env
-GATEWAY_VERSION="v5.4.0-alpha5"
-PORTAL_VERSION="v1.10.0-alpha2"
-DASHBOARD_VERSION="s5.4.0-alpha1"
-```
-For details on using Tyk stream please refer to our [official docs](tyk.io/docs)
 

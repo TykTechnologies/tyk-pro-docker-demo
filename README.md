@@ -95,7 +95,7 @@ pipeline:
 ```
 - save you api definition
 
-### Testing Your Async API
+### Testing Your API
 Let's test the API we just created.
 1. Send the request below using curl to stream orders
   curl http://localhost:8080/kafka/instruments/stream

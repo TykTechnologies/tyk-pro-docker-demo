@@ -152,7 +152,7 @@ createPolicyResponse=$(curl -s --location 'localhost:3000/api/portal/policies/' 
         }
     },
     "active": true,
-    "name": "Default Security Policyy",
+    "name": "Default Security Policy",
     "org_id": "'$orgId'",
     "per": 10,
     "rate": 2,

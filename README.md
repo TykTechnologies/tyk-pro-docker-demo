@@ -5,7 +5,7 @@
 ### Prerequisites
 
 1. Install [Docker](https://docs.docker.com/get-docker/)
-2. Get a license for [Tyk Self-Managed](https://tyk.io/sign-up/) (choose "on your infrastructure"). This is a self-service option!
+2. Get a license for [Tyk Self-Managed](https://tyk.io/sign-up/) (choose "guided evaluation").
 
 
 ### Deploying Tyk

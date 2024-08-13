@@ -19,7 +19,7 @@ else
 fi
 
 echo "Bringing Tyk Trial deployment UP..."
-docker-compose up -d
+docker compose up -d
 if [ $? -ne 0 ]; then
     echo "docker-compose up failed"
     exit 1

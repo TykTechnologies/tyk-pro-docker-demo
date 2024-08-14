@@ -1,7 +1,7 @@
 version: '3.9'
 services:
   tyk-dashboard:
-    image: tykio/tyk-dashboard:${DASHBOARD_VERSION:-v5.4.0}
+    image: tykio/tyk-dashboard:${DASHBOARD_VERSION:-v5.5}
     container_name: tyk-dashboard
     environment:
       - TYK_DB_LICENSEKEY=${DASH_LICENSE:?License key missing from Docker environment file "".env" file.  Review The Getting Started steps in README.md.}
@@ -17,7 +17,7 @@ services:
     networks:
       - tyk
   tyk-ent-portal:
-    image: tykio/portal:${PORTAL_VERSION:-v1.10.0}
+    image: tykio/portal:${PORTAL_VERSION:-v1.10}
     command: --bootstrap
     ports:
       - 3001:3001
@@ -29,7 +29,7 @@ services:
       - tyk
 
   tyk-gateway:
-    image: tykio/tyk-gateway:${GATEWAY_VERSION:-v5.4.0}
+    image: tykio/tyk-gateway:${GATEWAY_VERSION:-v5.5}
     container_name: tyk-gateway
     ports:
       - "8080:8080"
@@ -39,7 +39,7 @@ services:
       - tyk
 
   tyk-pump:
-    image: tykio/tyk-pump-docker-pub:v1.10.0
+    image: tykio/tyk-pump-docker-pub:${PUMP_VERSION:-v1.11}
     container_name: tyk-pump
     env_file:
       - ./confs/pump.env

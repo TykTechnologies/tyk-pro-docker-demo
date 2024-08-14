@@ -12,15 +12,13 @@
 
 1. Close the repo: `git clone https://github.com/TykTechnologies/tyk-pro-docker-demo && cd tyk-pro-docker-demo`
 
-2. For a bootstrapped install, run `up.sh`
-OR
-2. Add your Tyk Dashboard license to .env (see .env.example) and run `docker-compose up`
+2. Run `docker-compose up` to start your instance.
 
+*** To bootstrap your instance, run ./scripts/init.sh - you can skip this if you'd like to bootstrap the instance manually. However, you will need to create a .env file and add the license to it. You can use the `.env.example` for reference.
 **gotcha:** you may need to give the executable permissions if you have an error:
 `chmod +x up.sh`
 
-
-4. The script sends to the STDOUT the details you need to open and log in to Tyk Dashobard:
+3. The script sends to the STDOUT the details you need to open and log in to Tyk Dashobard:
 ```
 ---------------------------
 Please sign in at http://localhost:3000

@@ -1,0 +1,34 @@
+input:
+  kafka:
+    addresses:
+      - kafka:9092
+    consumer_group: tyk
+    topics:
+      - instrument.json.AMZN
+output:
+  http_server:
+    allowed_verbs:
+      - GET
+    path: /instruments
+    stream_path: /instruments/stream
+    ws_path: /instruments/subscribe
+pipeline:
+  processors:
+    - bloblang: |
+        root = if this.order_value > 1000 {
+          this
+        } else {
+          deleted()
+        }
+    - branch:
+        processors:
+          - http:
+              headers:
+                Content-Type: application/json
+              url: https://httpbin.org/ip
+              verb: GET
+        request_map: root = ""
+        result_map: root.origin = this.origin
+    - bloblang: |
+        root.high_order = true
+        root = this.merge({ "high_value_order": true })

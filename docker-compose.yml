@@ -17,7 +17,7 @@ services:
     networks:
       - tyk
   tyk-ent-portal:
-    image: tykio/portal:${PORTAL_VERSION:-v1.11.0}
+    image: tykio/portal:${PORTAL_VERSION:-v1.13.0}
     command: --bootstrap
     ports:
       - 3001:3001

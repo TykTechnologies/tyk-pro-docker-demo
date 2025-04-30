@@ -1,0 +1,31 @@
+input:
+  kafka:
+    addresses: [ "labs-kafka:9092" ]
+    topics: [ "instrument.json.AMZN" ]
+    consumer_group: "benthos"
+pipeline:
+  processors:
+    - bloblang: |
+        root = if this.order_value > 1000 {
+          this
+        } else {
+          deleted()
+        }
+    - branch:
+        request_map: 'root = ""'
+        processors:
+          - http:
+              url: https://httpbin.org/ip
+              verb: GET
+              headers:
+                Content-Type: application/json
+        result_map: 'root.origin = this.origin'
+output:
+  http_server:
+    allowed_verbs:
+      - GET
+    path: /instruments
+    stream_path: /instruments/stream
+    ws_path: /instruments/subscribe
+
+

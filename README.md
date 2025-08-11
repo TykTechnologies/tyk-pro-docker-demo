@@ -14,7 +14,7 @@
 
 2. For a bootstrapped install, run `up.sh`
 OR
-2. Add your Tyk Dashboard license to .env (see .env.example) and run `docker-compose up`
+2. Add your Tyk Dashboard license to .env (see .env.example) and run `docker compose up`
 
 **gotcha:** you may need to give the executable permissions if you have an error:
 `chmod +x up.sh`
@@ -41,7 +41,7 @@ The quick start uses PostgreSQL database. To use a Mongo database issue the
 following command.
 
 ```
-$ docker-compose -f ./docker-compose.yml -f ./docker-compose.mongo.yml up
+$ docker compose -f ./docker-compose.yml -f ./docker-compose.mongo.yml up
 ```
 
 ### Cleanup Docker Containers
@@ -51,13 +51,13 @@ To delete all docker containers as well as remove all volumes from your host:
 PostgreSQL:
 
 ```
-$ docker-compose down -v
+$ docker compose down -v
 ```
 
 MongoDB:
 
 ```
-$ docker-compose -f ./docker-compose.yml -f ./docker-compose.mongo.yml down -v
+$ docker compose -f ./docker-compose.yml -f ./docker-compose.mongo.yml down -v
 ```
 </br>
 

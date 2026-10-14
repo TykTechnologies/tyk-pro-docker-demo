@@ -1,5 +1,10 @@
 # Tyk Pro Demo using Docker
 
+> [!WARNING]
+> **Deprecated: this repository is no longer maintained.** It uses the old "Tyk Pro" name and is pinned to old Tyk versions.
+> - To try Tyk Self-Managed with Docker Compose, use [tyk-install/docker/self-managed](https://github.com/TykTechnologies/tyk-install/tree/main/docker/self-managed).
+> - For a guided first run, follow the [Tyk Self-Managed quick start](https://tyk.io/docs/getting-started/quick-start).
+
 ## Quick start
 
 ### Prerequisites
